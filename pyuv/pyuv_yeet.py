@@ -4,7 +4,11 @@ import signal
 import pyuv
 import time
 
+server = None
+signal_h = None
+
 def main():
+    global server, signal_h
     print("PyUV version %s" % pyuv.__version__)
 
     loop = pyuv.Loop.default_loop()
@@ -33,9 +37,9 @@ def on_shutdown(client, err):
     client.close()
 
 def signal_cb(handle, signum):
+    global server, signal_h
     # [c.close() for c in clients]
     signal_h.close()
-    server.shutdown()
     server.close()
 
 if __name__ == "__main__":
