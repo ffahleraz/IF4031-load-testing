@@ -26,6 +26,7 @@ def main():
 def on_connection(server, error):
     client = pyuv.TCP(server.loop)
     server.accept(client)
+    client.write("HTTP/1.1 200 OK\r\n\r\n".encode('ascii'))
     with open("test-pages/500b.html", "rb") as file:
         client.write(file.read())
     client.shutdown(on_shutdown)
