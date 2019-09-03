@@ -4,7 +4,9 @@
 
 Untuk melakukan load testing, kami menggunakan tool bernama k6. Dengan tool ini,
 kami dapat dengan mudah menguji berbagai metrik yang penting seperti requests
-per second dan latency. Berikut cara melakukan pengujian:
+per second dan latency. 
+
+Dengan nginx melayani pada `localhost:80`, load testing dapat dilakukan dengan:
 
 - File 500b:
 ```
