@@ -1,7 +1,7 @@
 import signal
 import pyuv
 
-file_dir = "test-pages/500b.html"
+file_dir = "test-pages/20kb.html"
 server = None
 sigint_watcher = None
 # If we set the payload as a global variable, somehow it will be slower
