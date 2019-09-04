@@ -1,45 +1,57 @@
-from __future__ import print_function
-
 import signal
 import pyuv
-import time
 
+file_dir = "test-pages/500b.html"
 server = None
-signal_h = None
+sigint_watcher = None
+# If we set the payload as a global variable, somehow it will be slower
+# payload = "HTTP/1.1 200 OK\r\n\r\n".encode('ascii')
+# with open("test-pages/20kb.html", "rb") as file:
+#     payload += file.read()
 
 def main():
-    global server, signal_h
-    print("PyUV version %s" % pyuv.__version__)
+    global server, sigint_watcher, file_dir
+    print("Started!")
 
     loop = pyuv.Loop.default_loop()
-    # clients = []
+    # Read file at initialization to save time
+    data = "HTTP/1.1 200 OK\r\n\r\n".encode('ascii')
+    with open(file_dir, "rb") as file:
+        data += file.read()
+    loop.payload = data
 
     server = pyuv.TCP(loop)
     server.bind(("0.0.0.0", 1234))
     server.listen(on_connection)
 
-    signal_h = pyuv.Signal(loop)
-    signal_h.start(signal_cb, signal.SIGINT)
+    sigint_watcher = pyuv.Signal(loop)
+    sigint_watcher.start(on_sigint, signal.SIGINT)
 
     loop.run()
     print("Stopped!")
 
 def on_connection(server, error):
     client = pyuv.TCP(server.loop)
+    client.payload = server.loop.payload
     server.accept(client)
-    # clients.append(client)
-    with open("test-pages/500b.html", "rb") as file:
-        client.write(file.read())
-    # client.write("Yeet\n".encode('ascii'))
-    client.shutdown(on_shutdown)
+    client.start_read(on_read)
+
+def on_read(client, data, error):
+    if data is None:
+        client.shutdown(on_shutdown)
+        return
+    client.write(client.payload, on_write) # client.loop.payload also works, but slower
+
+def on_write(client, err):
+    client.shutdown(on_shutdown)    
 
 def on_shutdown(client, err):
     client.close()
 
-def signal_cb(handle, signum):
-    global server, signal_h
-    # [c.close() for c in clients]
-    signal_h.close()
+def on_sigint(handle, signum):
+    global server, sigint_watcher
+    print("Interrupted!")
+    sigint_watcher.close()
     server.close()
 
 if __name__ == "__main__":
