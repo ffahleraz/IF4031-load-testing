@@ -1,6 +1,6 @@
 const http = require("http");
 const fs = require("fs");
-const hostname = "127.0.0.1";
+const hostname = "0.0.0.0";
 const port = 3000;
 const page_20kb = "test-pages/20kb.html";
 const page_500b = "test-pages/500b.html";
@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
       } else {
         res.write(data);
       }
-      res.end()
+      res.end();
     });
   } else if (req.url === "/500b") {
     fs.readFile(page_500b, null, function(error, data) {
@@ -26,11 +26,9 @@ const server = http.createServer((req, res) => {
       } else {
         res.write(data);
       }
-      res.end()
+      res.end();
     });
   }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`);
-});
+server.listen(port, hostname);
