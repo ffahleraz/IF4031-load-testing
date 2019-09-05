@@ -65,6 +65,7 @@
 
 ## Kesimpulan
 RPS yg didapat untuk beban C10K yg didapat di masing-masing server adalah sebagai berikut:
+
 |      |  nginx   |  node   |   pyuv   |
 |:----:|----------|---------|----------|
 | 500b | 15673.55 | 3774.76 | 10965.52 |
