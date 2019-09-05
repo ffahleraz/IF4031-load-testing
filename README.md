@@ -54,18 +54,18 @@ Peak memory (MB)    : 176, 160, 180, 180, 160
 * Sebelum melakukan testing, ubah variable `file_dir` di dalam file `pyuv/pyuv_server.py` menjadi direktori file yang ingin ditest
 * Run server dengan cara me-run `python directory/to/pyuv_server.py`. Secara default, server akan listen di port **1234**
 #### 500b
-Mean RPS            : 11092.57, 11003.84, 10875.02, 10827.93, 11028.24
-Mean latency (ms)   : 819, 818, 826, 831, 827
-Peak memory (MB)    : 10, 10, 10, 10, 10
+Mean RPS            : 9651.91, 9337.40, 9538.72, 9321.73, 9250.20
+Mean latency (ms)   : 605, 677, 735, 689, 669
+Peak memory (MB)    : 13, 13, 19, 14, 17
 
 #### 20kb
-Mean RPS            : 10511.63, 10841.21, 10515.37, 10440.68, 10614.40
-Mean latency (ms)   : 866, 841, 847, 858, 847
-Peak memory (MB)    : 10, 10, 10, 10, 10
+Mean RPS            : 6761.92, 6590.58, 6868.15, 6595.08, 7115.80
+Mean latency (ms)   : 758, 782, 809, 861, 677
+Peak memory (MB)    : 59, 206, 118, 40, 50
 
 ## Kesimpulan
 RPS yg didapat untuk beban C10K yg didapat di masing-masing server adalah sebagai berikut:
-|      |  nginx   |  node   |   pyuv   |
-|:----:|----------|---------|----------|
-| 500b | 15673.55 | 3774.76 | 10965.52 |
-| 20kb | 15152.06 | 3414.89 | 10584.66 |
+|      |  nginx   |  node   |  pyuv   |
+|:----:|----------|---------|---------|
+| 500b | 15673.55 | 3774.76 | 9420.00 |
+| 20kb | 15152.06 | 3414.89 | 6786.31 |

@@ -1,7 +1,7 @@
 import signal
 import pyuv
 
-file_dir = "test-pages/20kb.html"
+file_dir = "test-pages/500b.html"
 server = None
 sigint_watcher = None
 # If we set the payload as a global variable, somehow it will be slower
@@ -14,11 +14,11 @@ def main():
     print("Started!")
 
     loop = pyuv.Loop.default_loop()
-    # Read file at initialization to save time
-    data = "HTTP/1.1 200 OK\r\n\r\n".encode('ascii')
-    with open(file_dir, "rb") as file:
-        data += file.read()
-    loop.payload = data
+    # Caching test
+    # data = "HTTP/1.1 200 OK\r\n\r\n".encode('ascii')
+    # with open(file_dir, "rb") as file:
+    #     data += file.read()
+    # loop.payload = data
 
     server = pyuv.TCP(loop)
     server.bind(("0.0.0.0", 1234))
@@ -32,7 +32,7 @@ def main():
 
 def on_connection(server, error):
     client = pyuv.TCP(server.loop)
-    client.payload = server.loop.payload
+    # client.payload = server.loop.payload
     server.accept(client)
     client.start_read(on_read)
 
@@ -40,7 +40,8 @@ def on_read(client, data, error):
     if data is None:
         client.shutdown(on_shutdown)
         return
-    client.write(client.payload, on_write) # client.loop.payload also works, but slower
+    with open(file_dir, "rb") as file:
+        client.write("HTTP/1.1 200 OK\r\n\r\n".encode('ascii') + file.read(), on_write)
 
 def on_write(client, err):
     client.shutdown(on_shutdown)    
