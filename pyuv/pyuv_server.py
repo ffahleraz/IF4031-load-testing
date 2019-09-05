@@ -1,7 +1,7 @@
 import signal
 import pyuv
+import re
 
-file_dir = "test-pages/500b.html"
 server = None
 sigint_watcher = None
 # If we set the payload as a global variable, somehow it will be slower
@@ -40,8 +40,21 @@ def on_read(client, data, error):
     if data is None:
         client.shutdown(on_shutdown)
         return
-    with open(file_dir, "rb") as file:
-        client.write("HTTP/1.1 200 OK\r\n\r\n".encode('ascii') + file.read(), on_write)
+
+    path_match = re.search(rb"GET (.*) ", data)
+    if path_match:
+        path = path_match.group(1).decode("utf-8")
+        print("[GET]", path)
+    else:
+        client.write("HTTP/1.1 400 Bad Request\r\n\r\n".encode('ascii'), on_write)
+        return
+
+    try:
+        file_path = path[1:]
+        with open(file_path, "rb") as file:
+            client.write("HTTP/1.1 200 OK\r\n\r\n".encode('ascii') + file.read(), on_write)
+    except:
+        client.write("HTTP/1.1 404 Not Found\r\n\r\n".encode('ascii'), on_write)
 
 def on_write(client, err):
     client.shutdown(on_shutdown)    
