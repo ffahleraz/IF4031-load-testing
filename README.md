@@ -1,7 +1,7 @@
 # IF4031 PAT: Event-Driven Web-Server Performance Testing
-13516107 - Senapati Sang Diwangkara
-13516??? - Faza Fahleraz
-13516??? - Dion Saputra
+* 13516107 - Senapati Sang Diwangkara
+* 13516095 - Faza Fahleraz
+* 13516045 - Dion Saputra
 
 ## Metode Pengujian
 * Kami memilih `pyuv` (libuv binding untuk Python) untuk low-level library dan `node.js` untuk high-level library. 
@@ -24,14 +24,14 @@
 * Sebelum melakukan testing, copy isi folder `test-pages` ke folder `/usr/share/nginx/html/`
 * Run server dengan cara me-run `sudo systemctl start nginx`. Secara default, server akan listen di port **80**
 #### 500b
-Mean RPS            : 15789.24, 15481.22, 15474.36, 15823.97, 15798.94
-Mean latency (ms)   : 68, 70, 70, 68, 68
-Peak memory (MB)    : 5, 5, 5, 5, 5
+* Mean RPS            : 15789.24, 15481.22, 15474.36, 15823.97, 15798.94
+* Mean latency (ms)   : 68, 70, 70, 68, 68
+* Peak memory (MB)    : 5, 5, 5, 5, 5
 
 #### 20kb
-Mean RPS            : 15217.48, 14980.58, 15195.16, 15161.49, 15205.60
-Mean latency (ms)   : 71, 72, 71, 71, 71
-Peak memory (MB)    : 5, 5, 5, 5, 5
+* Mean RPS            : 15217.48, 14980.58, 15195.16, 15161.49, 15205.60
+* Mean latency (ms)   : 71, 72, 71, 71, 71
+* Peak memory (MB)    : 5, 5, 5, 5, 5
 
 
 ### node 12.9.1
@@ -39,14 +39,14 @@ Peak memory (MB)    : 5, 5, 5, 5, 5
 * Sebelum melakukan testing, ubah variable `page_500b` dan `page_20kb` di dalam file `nodejs/app.js` menjadi direktori file yang ingin ditest
 * Run server dengan cara me-run `node directory/to/app.js`. Secara default, server akan listen di port **3000**
 #### 500b
-Mean RPS            : 3800.95, 3620.76, 3776.75, 3819.18, 3856.17
-Mean latency (ms)   : 694, 746, 795, 776, 717
-Peak memory (MB)    : 114, 112, 118, 109, 108
+* Mean RPS            : 3800.95, 3620.76, 3776.75, 3819.18, 3856.17
+* Mean latency (ms)   : 694, 746, 795, 776, 717
+* Peak memory (MB)    : 114, 112, 118, 109, 108
 
 #### 20kb
-Mean RPS            : 3343.42, 3571.94, 3369.71, 3275.40, 3513.96
-Mean latency (ms)   : 752, 645, 838, 772, 684
-Peak memory (MB)    : 176, 160, 180, 180, 160
+* Mean RPS            : 3343.42, 3571.94, 3369.71, 3275.40, 3513.96
+* Mean latency (ms)   : 752, 645, 838, 772, 684
+* Peak memory (MB)    : 176, 160, 180, 180, 160
 
 
 ### pyuv 1.40, python 3.6
