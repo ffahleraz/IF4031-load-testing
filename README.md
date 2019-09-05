@@ -66,6 +66,7 @@ Peak memory (MB)    : 59, 206, 118, 40, 50
 
 ## Kesimpulan
 RPS yg didapat untuk beban C10K yg didapat di masing-masing server adalah sebagai berikut:
+
 |      |  nginx   |  node   |  pyuv   |
 |:----:|----------|---------|---------|
 | 500b | 15673.55 | 3774.76 | 9420.00 |
