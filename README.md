@@ -6,8 +6,9 @@
 ## Metode Pengujian
 * Kami memilih `pyuv` (libuv binding untuk Python) untuk low-level library dan `node.js` untuk high-level library. 
 * Ketiga webserver (nginx, node, pyuv) dibenchmark secara local menggunakan tools:
-  * ApacheBench (untuk simulasi beban C10K dan penghitungan RPS) dg command
+  * ApacheBench (untuk simulasi beban C10K dan penghitungan RPS)
   * [mem_usage_ui](https://github.com/parikls/mem_usage_ui) (untuk monitor memory usage)
+* File yg dibenchmark ada di folder `test-pages`
 * Komputer yang digunakan untuk benchmark mempunyai environment sebagai berikut
   * Intel i5-3317U (4-core @ 1.7 GHz)
   * 8GB RAM
